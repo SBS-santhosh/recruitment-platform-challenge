@@ -1,7 +1,8 @@
+// app/layout.js
 import localFont from "next/font/local";
 import "./globals.css";
 import { ConfigProvider } from 'antd';
-import StoreProvider from '@/store/StoreProvider';
+import StoreProvider from '../store/StoreProvider'; // This should work now
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

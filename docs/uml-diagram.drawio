@@ -1,0 +1,150 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" version="21.0.0" etag="drawio-uml" type="device">
+  <diagram id="recruitment-platform-uml" name="Recruitment Platform Architecture">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Application Layer -->
+        <mxCell id="app-layer" value="Next.js 14 Application (App Router)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1080" height="400" as="geometry" />
+        </mxCell>
+        
+        <!-- Pages -->
+        <mxCell id="home-page" value="HomePage (app/page.js)&#xa;- Redirects to /login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="app-layer">
+          <mxGeometry x="20" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="login-page" value="LoginPage (app/login/page.jsx)&#xa;- Authentication form&#xa;- Validates credentials&#xa;- Routes to /recruiter or /candidate&#xa;- Language toggle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="app-layer">
+          <mxGeometry x="240" y="50" width="280" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="candidate-page" value="CandidatePage (app/candidate/page.jsx)&#xa;- Application form&#xa;- Personal info fields&#xa;- CV upload (PDF/DOC/DOCX)&#xa;- Form validation&#xa;- Success state&#xa;- Language toggle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="app-layer">
+          <mxGeometry x="540" y="50" width="260" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="recruiter-page" value="RecruiterPage (app/recruiter/page.jsx)&#xa;- Candidate list view&#xa;- Pagination (5 per page)&#xa;- Accept/Reject actions&#xa;- View details modal&#xa;- Status tags&#xa;- Language toggle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="app-layer">
+          <mxGeometry x="820" y="50" width="240" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Layout -->
+        <mxCell id="layout" value="RootLayout (app/layout.js)&#xa;- ConfigProvider (Ant Design)&#xa;- StoreProvider (Redux)&#xa;- Font configuration (Geist)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="app-layer">
+          <mxGeometry x="20" y="190" width="300" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Redux Store Layer -->
+        <mxCell id="redux-layer" value="Redux Store (State Management)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="1080" height="320" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="store-provider" value="StoreProvider (store/StoreProvider.js)&#xa;- Wraps app with Redux Provider&#xa;- Provides store to all components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="redux-layer">
+          <mxGeometry x="20" y="50" width="300" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="store" value="Store (store/store.js)&#xa;- configureStore from Redux Toolkit&#xa;- Root reducer: candidates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="redux-layer">
+          <mxGeometry x="340" y="50" width="280" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="candidate-slice" value="candidateSlice (store/candidateSlice.js)&#xa;&#xa;State:&#xa;  - candidates: Array&lt;Candidate&gt;&#xa;  - loading: boolean&#xa;&#xa;Actions:&#xa;  - addCandidate(candidate)&#xa;  - acceptCandidate(id)&#xa;  - rejectCandidate(id)&#xa;  - updateCandidate(candidate)&#xa;  - clearCandidates()&#xa;&#xa;Selectors:&#xa;  - selectCandidates()&#xa;  - selectPendingCandidates()&#xa;  - selectAcceptedCandidates()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="redux-layer">
+          <mxGeometry x="640" y="50" width="420" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Candidate Model -->
+        <mxCell id="candidate-model" value="Candidate Model&#xa;{&#xa;  id: string&#xa;  name: string&#xa;  lastname: string&#xa;  email: string&#xa;  grade: string&#xa;  city: string&#xa;  number: string&#xa;  cv: {&#xa;    name: string&#xa;    url: string&#xa;    size: number&#xa;    type: string&#xa;  }&#xa;  status: 'pending' | 'accepted'&#xa;  createdAt: string&#xa;}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;fontFamily=Courier New;" vertex="1" parent="redux-layer">
+          <mxGeometry x="20" y="130" width="280" height="170" as="geometry" />
+        </mxCell>
+        
+        <!-- Hooks Layer -->
+        <mxCell id="hooks-layer" value="Custom Hooks" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="840" width="1080" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="use-translations" value="useTranslations (hooks/useTranslations.js)&#xa;&#xa;Features:&#xa;  - Multi-language support (EN/FR)&#xa;  - Translation function t(key)&#xa;  - Language state management&#xa;  - changeLanguage(lang)&#xa;&#xa;Translation Keys:&#xa;  - candidate.*&#xa;  - login.*&#xa;  - recruiter.*&#xa;  - common.*" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="hooks-layer">
+          <mxGeometry x="20" y="50" width="500" height="130" as="geometry" />
+        </mxCell>
+        
+        <!-- Ant Design Components -->
+        <mxCell id="antd-components" value="Ant Design Components Used" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="hooks-layer">
+          <mxGeometry x="540" y="50" width="520" height="130" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="antd-list" value="Components:&#xa;  - Form, Input, Input.Password&#xa;  - Button, Upload, DatePicker&#xa;  - Card, Space, Divider&#xa;  - List, Avatar, Tag, Modal&#xa;  - Typography, Result&#xa;  - FloatButton, Tooltip&#xa;  - message (notifications)&#xa;  - ConfigProvider" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=10;fontFamily=Courier New;fontSize=11;" vertex="1" parent="hooks-layer">
+          <mxGeometry x="560" y="70" width="480" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Persistence Layer -->
+        <mxCell id="persistence-layer" value="Persistence Layer" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1080" width="1080" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="localstorage" value="localStorage&#xa;&#xa;Keys:&#xa;  - candidatesState: JSON string of Redux state&#xa;  - isLoggedIn: 'true' | undefined&#xa;  - user: username string&#xa;&#xa;Operations:&#xa;  - Auto-save on state changes&#xa;  - Load on app initialization&#xa;  - SSR-safe checks (typeof window)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;align=left;verticalAlign=top;spacingLeft=10;fontFamily=Courier New;" vertex="1" parent="persistence-layer">
+          <mxGeometry x="20" y="50" width="1040" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Flow Arrows -->
+        <mxCell id="flow1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;" edge="1" parent="1" source="candidate-page" target="candidate-slice">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="670" y="300" as="sourcePoint" />
+            <mxPoint x="720" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow2" value="dispatch(addCandidate)" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#0066CC;fontColor=#0066CC;" edge="1" parent="1" source="candidate-page" target="candidate-slice">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="670" y="300" as="sourcePoint" />
+            <mxPoint x="720" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow3" value="useSelector" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#0066CC;fontColor=#0066CC;" edge="1" parent="1" source="candidate-slice" target="recruiter-page">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="850" y="300" as="sourcePoint" />
+            <mxPoint x="900" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow4" value="dispatch(accept/reject)" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#0066CC;fontColor=#0066CC;" edge="1" parent="1" source="recruiter-page" target="candidate-slice">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="940" y="300" as="sourcePoint" />
+            <mxPoint x="990" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow5" value="save/load" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#CC0000;fontColor=#CC0000;" edge="1" parent="1" source="candidate-slice" target="localstorage">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="850" y="300" as="sourcePoint" />
+            <mxPoint x="900" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow6" value="useTranslations()" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#00AA00;fontColor=#00AA00;" edge="1" parent="1" source="use-translations" target="login-page">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="900" as="sourcePoint" />
+            <mxPoint x="350" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow7" value="useTranslations()" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#00AA00;fontColor=#00AA00;" edge="1" parent="1" source="use-translations" target="candidate-page">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="900" as="sourcePoint" />
+            <mxPoint x="350" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow8" value="useTranslations()" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#00AA00;fontColor=#00AA00;" edge="1" parent="1" source="use-translations" target="recruiter-page">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="900" as="sourcePoint" />
+            <mxPoint x="350" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="title" value="Recruitment Platform - Architecture UML Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="1080" height="30" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+

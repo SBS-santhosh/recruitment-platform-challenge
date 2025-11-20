@@ -1,10 +1,8 @@
-
-
 'use client'
 
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, message, Space, Divider } from 'antd';
-import { UserOutlined, LockOutlined, TeamOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Card, message, Space, Divider, FloatButton, Tooltip } from 'antd';
+import { UserOutlined, LockOutlined, TeamOutlined, GlobalOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from '../../hooks/useTranslations';
 
@@ -12,22 +10,29 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [isStudentMode, setIsStudentMode] = useState(false);
   const router = useRouter();
-  const { language } = useTranslations();
+  const { language, changeLanguage } = useTranslations();
 
-  
   const validCredentials = {
     username: 'admin',
     password: 'password123'
   };
 
+  const handleLanguageChange = () => {
+    const newLang = language === 'en' ? 'fr' : 'en';
+    changeLanguage(newLang);
+    
+    const messageText = newLang === 'en' 
+      ? 'Language changed to English' 
+      : 'Langue changée en Français';
+    message.info(messageText);
+  };
+
   const onFinish = async (values) => {
     setLoading(true);
     
- 
     setTimeout(() => {
       if (values.username === validCredentials.username && values.password === validCredentials.password) {
         message.success(language === 'en' ? 'Login successful!' : 'Connexion réussie !');
-        // Store login state
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user', values.username);
         router.push('/recruiter');
@@ -61,7 +66,6 @@ const LoginPage = () => {
         style={{ width: 400, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
       >
         {!isStudentMode ? (
-   
           <>
             <Form
               name="basic"
@@ -115,17 +119,8 @@ const LoginPage = () => {
             >
               {language === 'en' ? 'I\'m a student - Apply for internship' : 'Je suis étudiant - Postuler pour un stage'}
             </Button>
-
-        {/*   <div style={{ marginTop: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '6px' }}>
-              <Space direction="vertical" size={0} style={{ fontSize: '12px', width: '100%' }}>
-                <div><strong>{language === 'en' ? 'Demo Credentials:' : 'Identifiants de démo :'}</strong></div>
-                <div>Username: admin</div>
-                <div>Password: password123</div>
-              </Space>
-            </div> */}
           </>
         ) : (
-          
           <div style={{ textAlign: 'center' }}>
             <p>{language === 'en' ? 'Student application form would go here' : 'Le formulaire de candidature étudiant irait ici'}</p>
             <Button onClick={() => setIsStudentMode(false)}>
@@ -134,6 +129,17 @@ const LoginPage = () => {
           </div>
         )}
       </Card>
+
+      {/* Translation Button */}
+      <Tooltip title={language === 'en' ? "Switch to French" : "Passer en Anglais"} placement="left">
+        <FloatButton
+          icon={<GlobalOutlined />}
+          onClick={handleLanguageChange}
+          description={language.toUpperCase()}
+          shape="square"
+          style={{ right: 24 }}
+        />
+      </Tooltip>
     </div>
   );
 };

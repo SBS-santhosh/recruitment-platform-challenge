@@ -1,10 +1,9 @@
-
 'use client'
 
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { List, Avatar, Button, Space, message, Card, Tag, Modal, Typography } from 'antd';
-import { CloseOutlined, CheckOutlined, EyeOutlined, FileTextOutlined } from '@ant-design/icons';
+import { List, Avatar, Button, Space, message, Card, Tag, Modal, Typography, FloatButton, Tooltip } from 'antd';
+import { CloseOutlined, CheckOutlined, EyeOutlined, FileTextOutlined, GlobalOutlined } from '@ant-design/icons';
 import {
   selectCandidates,
   rejectCandidate,
@@ -16,11 +15,21 @@ const { Text } = Typography;
 
 const RecruiterPage = () => {
   const dispatch = useDispatch();
-  const { language } = useTranslations();
+  const { language, changeLanguage } = useTranslations();
   
   const allCandidates = useSelector(selectCandidates);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [viewModalVisible, setViewModalVisible] = useState(false);
+
+  const handleLanguageChange = () => {
+    const newLang = language === 'en' ? 'fr' : 'en';
+    changeLanguage(newLang);
+    
+    const messageText = newLang === 'en' 
+      ? 'Language changed to English' 
+      : 'Langue changée en Français';
+    message.info(messageText);
+  };
 
   const handleReject = (candidateId) => {
     dispatch(rejectCandidate(candidateId));
@@ -122,7 +131,7 @@ const RecruiterPage = () => {
         />
       </Card>
 
-      {/* Candidate Details Modal */}
+    
       <Modal
         title={language === 'en' ? 'Candidate Details' : 'Détails du Candidat'}
         open={viewModalVisible}
@@ -194,6 +203,17 @@ const RecruiterPage = () => {
           </div>
         )}
       </Modal>
+
+    
+      <Tooltip title={language === 'en' ? "Switch to French" : "Passer en Anglais"} placement="left">
+        <FloatButton
+          icon={<GlobalOutlined />}
+          onClick={handleLanguageChange}
+          description={language.toUpperCase()}
+          shape="square"
+          style={{ right: 24 }}
+        />
+      </Tooltip>
     </div>
   );
 };
