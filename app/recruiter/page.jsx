@@ -85,6 +85,7 @@ const RecruiterPage = () => {
             <List.Item
               actions={[
                 <Button
+                  key="view"
                   icon={<EyeOutlined />}
                   size="small"
                   onClick={() => handleViewDetails(candidate)}
@@ -93,6 +94,7 @@ const RecruiterPage = () => {
                 </Button>,
                 candidate.status === 'pending' && (
                   <Button
+                    key="accept"
                     type="primary"
                     icon={<CheckOutlined />}
                     size="small"
@@ -102,6 +104,7 @@ const RecruiterPage = () => {
                   </Button>
                 ),
                 <Button
+                  key="remove"
                   danger
                   icon={<CloseOutlined />}
                   size="small"
@@ -131,7 +134,6 @@ const RecruiterPage = () => {
         />
       </Card>
 
-    
       <Modal
         title={language === 'en' ? 'Candidate Details' : 'Détails du Candidat'}
         open={viewModalVisible}
@@ -204,7 +206,6 @@ const RecruiterPage = () => {
         )}
       </Modal>
 
-    
       <Tooltip title={language === 'en' ? "Switch to French" : "Passer en Anglais"} placement="left">
         <FloatButton
           icon={<GlobalOutlined />}
