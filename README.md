@@ -2,11 +2,27 @@
 
 Application Next.js de gestion de candidatures avec Redux Toolkit, Ant Design et i18n (EN/FR).
 
-##  Démarrage Rapide
+## Configuration
+
+Créez un fichier `.env.local` à la racine du projet pour définir les identifiants de connexion de manière sécurisée :
+
+```
+NEXT_PUBLIC_LOGIN_USERNAME=monUtilisateur
+NEXT_PUBLIC_LOGIN_PASSWORD=monMotDePasse
+```
+
+> Sans ces variables, l'application utilisera les valeurs de secours `admin` / `password`.
+
+## 🚀 Démarrage Rapide
 
 ```bash
 # Installation
 npm install
+
+# Installation les pakages 
+npm install antd
+npm install @reduxjs/toolkit
+npm install react-redux
 
 # Développement
 npm run dev          # http://localhost:3000
@@ -18,15 +34,14 @@ npm run build && npm start
 npm run lint
 ```
 
-## 📦 Technologies
+##  Technologies
 
 - **Next.js 14.2.33** (App Router)
 - **React 18** + **Redux Toolkit 2.10.1**
 - **Ant Design 5.29.1** (UI)
-- **next-intl 4.5.5** (i18n)
 - **localStorage** (persistance)
 
-## 📁 Structure
+##  Structure
 
 ```
 app/
@@ -44,7 +59,7 @@ hooks/
 └── useTranslations.js    # i18n hook (EN/FR)
 ```
 
-## 💻 Utilisation
+##  Utilisation
 
 ### Candidats
 - Route: `/candidate`
@@ -52,12 +67,12 @@ hooks/
 - Validation automatique + confirmation
 
 ### Recruteurs
-- Route: `/login` → Credentials: `admin` / `password123`
+- Route: `/login` → Credentials définis via `.env.local`
 - Actions: Accepter, Rejeter, Voir détails
 - Pagination: 5 candidats/page
 - Statuts: `pending` → `accepted`
 
-## 🏗 Architecture Technique
+##  Architecture Technique
 
 ### Redux Store
 ```javascript
