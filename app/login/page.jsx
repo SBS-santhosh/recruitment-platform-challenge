@@ -14,8 +14,9 @@ const LoginPage = () => {
 
   const validCredentials = {
     username: 'admin',
-    password: 'password123'
+    password: 'password'
   };
+  //  Ce mot de passe est uniquement utilisé pour un test local (mock login).
 
   const handleLanguageChange = () => {
     const newLang = language === 'en' ? 'fr' : 'en';
