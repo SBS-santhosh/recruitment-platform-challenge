@@ -13,10 +13,14 @@ const LoginPage = () => {
   const { language, changeLanguage } = useTranslations();
 
   const validCredentials = {
-    username: 'admin',
-    password: 'password'
+    username: process.env.NEXT_PUBLIC_LOGIN_USERNAME || 'admin',
+    password: process.env.NEXT_PUBLIC_LOGIN_PASSWORD || 'password'
   };
-  //  Ce mot de passe est uniquement utilisé pour un test local (mock login).
+
+  {/*Create youy own .env file with the the login you want 
+    NEXT_PUBLIC_LOGIN_USERNAME=user
+    NEXT_PUBLIC_LOGIN_PASSWORD=pass
+                                      */}
 
   const handleLanguageChange = () => {
     const newLang = language === 'en' ? 'fr' : 'en';
@@ -131,7 +135,7 @@ const LoginPage = () => {
         )}
       </Card>
 
-      {/* Translation Button */}
+      
       <Tooltip title={language === 'en' ? "Switch to French" : "Passer en Anglais"} placement="left">
         <FloatButton
           icon={<GlobalOutlined />}
