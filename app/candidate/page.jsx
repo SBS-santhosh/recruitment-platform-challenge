@@ -1,14 +1,15 @@
-// app/candidate/page.js
+
 'use client'
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, Upload, Button, Card, Space, message, Result, FloatButton, Tooltip } from 'antd';
+import { Form, Input, Upload, Button, Card, Space, message, Result, FloatButton, Tooltip, DatePicker } from 'antd';
 import { UploadOutlined, SmileOutlined, GlobalOutlined } from '@ant-design/icons';
 import { addCandidate, selectCandidates } from '../../store/candidateSlice';
 import { useTranslations } from '../../hooks/useTranslations';
 
-// Local file handling
+const { RangePicker } = DatePicker;
+
 const handleLocalFileUpload = (file, onSuccess, onError) => {
   const reader = new FileReader();
   
@@ -226,6 +227,11 @@ const CandidatePage = () => {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
+       
+            <Form.Item label="Birth Date">
+                     <DatePicker />
+                    </Form.Item>
+
             <Form.Item
               label={language === 'en' ? "Name" : "Nom"}
               name="name"
