@@ -4,12 +4,11 @@ Application Next.js de gestion de candidatures avec Redux Toolkit, Ant Design et
 
 ## Configuration
 
-Créez un fichier `.env.local` à la racine du projet pour définir les identifiants de connexion de manière sécurisée :
+Créez un fichier `.env` à la racine du projet pour définir les identifiants de connexion de manière sécurisée :
 
 ```
-NEXT_PUBLIC_LOGIN_USERNAME=monUtilisateur
-NEXT_PUBLIC_LOGIN_PASSWORD=monMotDePasse
-```
+NEXT_PUBLIC_LOGIN_USERNAME=user
+NEXT_PUBLIC_LOGIN_PASSWORD=pass
 
 > Sans ces variables, l'application utilisera les valeurs de secours `admin` / `password`.
 
